@@ -79,3 +79,5 @@ gem 'mime-types'
 gem 'wicked_pdf'
 gem "wkhtmltopdf-binary", group: :development
 gem "wkhtmltopdf-heroku", group: :production
+gem "devise"
+gem 'letter_opener'
