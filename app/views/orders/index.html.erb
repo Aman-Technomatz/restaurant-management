@@ -1,0 +1,40 @@
+<%= link_to "New Order", new_order_path %>
+<table class="table caption-top">
+  <thead>
+    <tr>
+      <th scope="col">Orders</th>
+      <th scope="col">Download</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @orders.each do |order| %>
+      <tr>
+        <td><%= "Order => #{order.id}" %></td>
+        <td colspan="3"><%= link_to 'Download', order_path(order, format: :pdf) %></td>
+      </tr>
+      <tr>
+        <table class="table caption-top">
+          <thead>
+            <tr>
+              <th scope="col">Item</th>
+              <th scope="col">Quantity</th>
+              <th scope="col">Portion</th>
+              <th scope="col">Total Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% order.order_items.each do |order_item| %>
+              <tr>
+                <td><%= link_to order_item.item.name, order %></td>
+                <td><%= order_item.quantity %></td>
+                <td><%= order_item.portion %></td>
+                <td><%= order_item.total_price %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </tr>
+
+    <% end %>
+  </tbody>
+</table>

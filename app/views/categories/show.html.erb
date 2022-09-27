@@ -1,0 +1,26 @@
+<table class="table caption-top">
+  <thead>
+    <tr>
+      <th scope="col">
+        <%= @category.name %>
+      </th>
+      <th scope="col">
+        <%= link_to "Edit", edit_category_path(@category) %>
+      </th>
+      <th scope="col">
+        <%= link_to "Destroy", category_path(@category), data: {
+          turbo_method: :delete,
+          turbo_confirm: "Are you sure?"
+        } %>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+<!-- This is items show -->
+<%= render 'categories/itemshow' %>
+
+<h2>Add a item:</h2>
+<!-- This is items form -->
+<%= render 'items/item_form' %>

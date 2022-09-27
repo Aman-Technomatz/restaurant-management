@@ -1,0 +1,31 @@
+<table class="table caption-top">
+  <thead>
+    <tr>
+      <th scope="col">Items</th>
+      <th scope="col">Items Name</th>
+      <th scope="col">Portion</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Total Price</th>
+      <th colspan="3">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><%= @order.id %> </td>
+        <td><%= @item.name %> </td>
+        <td><%= @order_item.portion %> </td>
+        <td><%= @order_item.quantity %></td>
+        <td><%= @order_item.total_price %></td>
+        <td scope="col">
+        <%= link_to "Edit", edit_order_path(@order) %>
+        </td>
+        <td scope="col">
+          <%= link_to "Destroy", order_path(@order), data: {
+            turbo_method: :delete,
+            turbo_confirm: "Are you sure?"
+          } %>
+        </td>
+        <td><%#= link_to "Download",  %></td>
+      </tr>
+  </tbody>
+</table>

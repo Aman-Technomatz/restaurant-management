@@ -1,0 +1,23 @@
+<%= form_with model: [ @category, @item ] do |form| %>
+  <p>
+    <%= form.label :name %><br>
+    <%= form.text_field :name %>
+    <% @item.errors.full_messages_for(:name).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </p>
+
+  <p>
+    <%= form.label :portions %>
+    <%= form.number_field 'portions[single]', placeholder: 'single' %>
+    <%= form.number_field 'portions[double]',  placeholder: 'Double' %>
+    <%= form.number_field 'portions[triple]', placeholder: 'Triple' %>
+    <% @item.errors.full_messages_for(:portions).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </p>
+
+  <p>
+    <%= form.submit %>
+  </p>
+<% end %>

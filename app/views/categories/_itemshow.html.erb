@@ -1,0 +1,30 @@
+<table class="table caption-top">
+  <thead>
+    <tr>
+      <th scope="col">Items</th>
+      <th scope="col">Single</th>
+      <th scope="col">Double</th>
+      <th scope="col">Triple</th>
+      <th colspan="2">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @category.items.where.not(id: nil).each do |item| %>
+
+      <tr>
+        <th><%= item.name %> </th>
+        <% item.portions.each do |_k, v| %>
+          <td scope="col"> <%= v %> </td>
+        <%end%>
+        <td> <%= link_to "Destroy item", [item.category, item], data: {
+                      turbo_method: :delete,
+                      turbo_confirm: "Are you sure?"
+                    } %>
+        </td>
+        <td scope="col">
+          <%= link_to "Edit", edit_category_item_path(@category) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
