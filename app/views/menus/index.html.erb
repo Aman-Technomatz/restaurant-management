@@ -1,31 +1,33 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <title>Menus Index</title>
-  </head>
-  <body>
-    <caption><h6>List of Menu</h6></caption>
-    <% @categories.each do |category| %>
-      <table class="table caption-top">
+<caption><h6>List of Menu</h6></caption>
+
+<% @categories.each do |category| %>
+  <div class="card border-primary">
+    <div class="card-header text-center">
+      <%= category.name %>
+    </div>
+    <div class="card-body">
+      <table class="table">
         <thead>
           <tr>
-            <th colspan="1"><%= category.name %></th>
-            <th colspan="1">Single</th>
-            <th colspan="1">Double</th>
-            <th colspan="1">Triple</th>
+            <th scope="col">Items</th>
+            <th scope="col">Single</th>
+            <th scope="col">Double</th>
+            <th scope="col">Triple</th>
           </tr>
         </thead>
         <tbody>
           <% category.items.each do |item| %>
-            <tr>
-              <th colspan="1"><%= item.name %></th>
-            <% item.portions.each do |_k, v| %>
-              <td colspan="1"><%= v %></td>
-            <% end %>
+            <tr >
+              <th scope="row border"><%= item.name %></th>
+              <% item.portions.each do |_k, v| %>
+                <td scope="col" style="width: 25%" class='border' ><%= v %></td>
+              <% end %>
             </tr>
           <% end %>
         </tbody>
       </table>
-    <%end%>
-  </body>
-</html>
+    </div>
+  </div><!--card closed-->
+  <br>
+
+<%end%>
