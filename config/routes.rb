@@ -5,8 +5,6 @@ Rails.application.routes.draw do
   resources :categories do
     resources :items
   end
-  get 'downloads/:id', to: 'orders#download'
-  get 'preview', to: 'orders#preview'
   resources :orders
   resources :order_items
 end

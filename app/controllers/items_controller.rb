@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
   before_action :set_category, only: [:create, :show, :edit, :update, :destroy]
-  before_action :set_item, only: [:edit, :destroy]
+  before_action :set_item, only: [:edit, :destroy, :update]
 
   def create
     @item = @category.items.create(item_params)
@@ -8,10 +8,11 @@ class ItemsController < ApplicationController
   end
 
   def edit
+
   end
 
   def update
-    if @category.update(item_params)
+    if @item.update(item_params)
       redirect_to category_url(@category)
     else
       render :edit, status: :unprocessable_entity
@@ -20,7 +21,7 @@ class ItemsController < ApplicationController
 
   def destroy
     @item.destroy
-    redirect_to category_url(@category), status: :see_other
+    redirect_to @category, status: :see_other
   end
 
   private
@@ -29,10 +30,10 @@ class ItemsController < ApplicationController
     end
 
     def set_item
-      @item = Item.find(params[:id])
+      @item = @category.items.find(params[:id])
     end
 
     def item_params
-      params.require(:item).permit(:name, portions: [:single, :double, :triple])
+      params.require(:item).permit(:name, :image, portions: [:single, :double, :triple])
     end
 end

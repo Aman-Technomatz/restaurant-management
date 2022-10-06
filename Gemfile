@@ -71,13 +71,10 @@ group :test do
   gem "webdrivers"
 
 end
-gem 'rename'
 gem 'bootstrap-navbar', '~> 3.2'
 gem 'jquery-rails'
-gem "cocoon"
 gem 'mime-types'
-gem 'wicked_pdf'
-gem "wkhtmltopdf-binary", group: :development
-gem "wkhtmltopdf-heroku", group: :production
-gem "devise"
+gem 'prawn', '~> 2.1'
+gem 'prawn-table', '~> 0.2.2'
+gem 'devise'
 gem 'letter_opener'

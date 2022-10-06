@@ -9,13 +9,20 @@
 
   <p>
     <%= form.label :portions %>
-    <%= form.number_field 'portions[single]', placeholder: 'single' %>
-    <%= form.number_field 'portions[double]',  placeholder: 'Double' %>
-    <%= form.number_field 'portions[triple]', placeholder: 'Triple' %>
+    <%= form.fields :portions, model: OpenStruct.new(form.object.portions) do |field| %>
+      <%= field.text_field :single %>
+      <%= field.text_field :double %>
+      <%= field.text_field :triple %>
+    <% end %>
+
     <% @item.errors.full_messages_for(:portions).each do |message| %>
       <div><%= message %></div>
     <% end %>
   </p>
+  <div>
+    <%= form.label :image %>
+    <%= form.file_field :image %>
+  </div
 
   <p>
     <%= form.submit %>

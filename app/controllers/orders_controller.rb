@@ -3,19 +3,19 @@ class OrdersController < ApplicationController
 
   def index
     @orders = Order.all
+    @monthly_sale = Order.where(created_at: (Time.current.beginning_of_month..Time.now.end_of_month)).count
+    @yearly_sale = Order.where(created_at: (Time.current.beginning_of_year..Time.now.end_of_month)).count
   end
 
   def show
-    @order_item = OrderItem.find_by(order_id: @order.id)
-    @item = Item.find_by(id: @order_item.item_id)
     respond_to do |format|
       format.html
       format.pdf do
-        # render pdf: 'test'
-        # pdf = WickedPdf.new.pdf_from_string(render_to_string('orders/show'))
-        # render pdf: pdf, template: 'orders/show', layout: 'pdf'
-        # render pdf: 'Order id: #{@order.id}', template: 'orders/show.html.erb'
-        render pdf: 'Order id: #{@order.id}', template: 'orders/show'
+        pdf = OrderPdf.new(@order, view_context)
+        send_data pdf.render,
+                  filename: "#{@order.id}",
+                  type: 'application/pdf',
+                  disposition: 'inline'
       end
     end
   end
@@ -35,7 +35,7 @@ class OrdersController < ApplicationController
   end
 
   def edit
-    @order.order_items.build
+
   end
 
   def update
@@ -50,23 +50,6 @@ class OrdersController < ApplicationController
   def destroy
     @order.destroy
     redirect_to orders_url, status: :see_other
-  end
-
-  def download
-    @order_item = OrderItem.find_by(order_id: @order.id)
-    @item = Item.find_by(id: @order_item.item_id)
-    pdf = Prawn::Document.new
-    pdf.text "#{@item.name}
-     #{@order_item.portion}
-     #{@order_item.quantity}
-     #{@order_item.total_price}"
-    send_data(pdf.render,
-        filename: "#{@order.id}",
-        type: 'application/pdf')
-  end
-
-  def preview
-
   end
 
   private
