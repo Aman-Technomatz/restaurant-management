@@ -1,7 +1,7 @@
 <%= form_with model: [ @category, @item ] do |form| %>
   <p>
     <%= form.label :name %><br>
-    <%= form.text_field :name %>
+    <%= form.text_field :name, required: true  %>
     <% @item.errors.full_messages_for(:name).each do |message| %>
       <div><%= message %></div>
     <% end %>
@@ -10,9 +10,9 @@
   <p>
     <%= form.label :portions %>
     <%= form.fields :portions, model: OpenStruct.new(form.object.portions) do |field| %>
-      <%= field.text_field :single %>
-      <%= field.text_field :double %>
-      <%= field.text_field :triple %>
+      <%= field.text_field :single , required: true%>
+      <%= field.text_field :double, required: true %>
+      <%= field.text_field :triple, required: true %>
     <% end %>
 
     <% @item.errors.full_messages_for(:portions).each do |message| %>

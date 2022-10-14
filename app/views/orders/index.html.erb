@@ -1,19 +1,9 @@
-<table class="table caption-top">
-  <thead>
-  </thead>
-  <tbody>
-    <tr class='border'>
-      <th scope="col" class='border' style="text-align: center;">Montly Sale</th>
-      <th scope="col" class='border' style="text-align: center;">Yearly Sale</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr class='border'>
-      <td class='border' style="text-align: center;"><%= @monthly_sale %></td>
-      <td class='border' style="text-align: center;"><%= @yearly_sale %></td>
-    </tr>
-  </tbody>
-</table>
+<%= search_form_for @q, url: :orders do |f| %>
+  <%= f.text_field :id_eq, class: 'form-control',:placeholder => "Order id" %>
+  <br>
+  <%= f.submit class: 'btn btn-primary' %>
+<% end %>
+<%= link_to "Clear Search", request.path, class:"cancel-button" %>
 
 <table class="table caption-top">
   <thead>
@@ -24,7 +14,7 @@
         <table class="table caption-top">
           <thead>
           <tr class='border'>
-          <th class='border' colspan="3"><%= "Order No. #{order.id}" %></th>
+          <th class='border' colspan="3"><%= link_to "Order No. #{order.id}",order %></th>
           <th class='border'><%= link_to 'Download', order_path(order, format: :pdf), target: "_blank" %></th>
         </tr>
             <tr class='border'>
@@ -37,7 +27,7 @@
           <tbody>
             <% order.order_items.each do |order_item| %>
               <tr class='border'>
-                <td class='border'><%= link_to order_item.item.name, order %></td>
+                <td class='border'><%= order_item.item.name %></td>
                 <td class='border'><%= order_item.quantity %></td>
                 <td class='border'><%= order_item.portion %></td>
                 <td class='border'><%= order_item.total_price %></td>

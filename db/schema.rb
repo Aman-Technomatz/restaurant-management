@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_03_093357) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_13_093445) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -45,6 +45,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_03_093357) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "customers", force: :cascade do |t|
+    t.string "customer_name"
+    t.string "customer_email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "items", force: :cascade do |t|
     t.string "name"
     t.json "portions"
@@ -70,6 +77,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_03_093357) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "grand_total"
+    t.integer "customer_id"
+    t.index ["customer_id"], name: "index_orders_on_customer_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -103,4 +112,5 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_03_093357) do
   add_foreign_key "items", "categories"
   add_foreign_key "order_items", "items"
   add_foreign_key "order_items", "orders"
+  add_foreign_key "orders", "customers"
 end

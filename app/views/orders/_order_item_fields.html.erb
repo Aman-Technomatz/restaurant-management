@@ -7,19 +7,19 @@
       </div>
       <div class="field">
         <%= order_form.label :quantity, :class => "form-label" %><br>
-        <%= order_form.number_field :quantity, :class => "form-control" %>
+        <%= order_form.number_field :quantity, :class => "form-control", required: true %>
       </div>
       <div class="field">
         <%= order_form.label :Portions, :class => "form-label" %><br>
-        <%= order_form.radio_button :portion,"single", :class => "form-check-input" %>
+        <%= order_form.radio_button :portion,"single", :class => "form-check-input", required: true %>
         <%= order_form.label :Single %><br>
       </div>
       <div class="field">
-        <%= order_form.radio_button :portion,"double", :class => "form-check-input" %>
+        <%= order_form.radio_button :portion,"double", :class => "form-check-input", required: true  %>
         <%= order_form.label :Double %><br>
       </div>
       <div class="field">
-        <%= order_form.radio_button :portion,"triple", :class => "form-check-input" %>
+        <%= order_form.radio_button :portion,"triple", :class => "form-check-input", required: true  %>
         <%= order_form.label :Triple %><br>
       </div>
     </div>

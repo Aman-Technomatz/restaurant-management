@@ -1,4 +1,11 @@
 <%= form_with model: @order do |order_form| %>
+  <%= order_form.fields_for :customer do |customer_form| %>
+    <%= customer_form.label :cutomer_name, :class => "form-label" %><br>
+    <%= customer_form.text_field :cutomer_name %><br>
+    <%= customer_form.label :cutomer_email, :class => "form-label" %><br>
+    <%= customer_form.text_field :cutomer_email%><br>
+    <%= customer_form.submit %><br>
+  <% end %>
   <div id="tasks"  style="display: flex">
   <%= order_form.fields_for :order_items do |builder| %>
     <%= render 'order_item_fields', order_form: builder %>

@@ -21,8 +21,10 @@
             turbo_confirm: "Are you sure?"
           } %>
           |
+          <%= link_to 'Orignal Download', order_path(@order, format: :pdf, token: true), target: "_blank" %>
+          |
           <%= link_to 'Download', order_path(@order, format: :pdf), target: "_blank" %>
-        </td>
+          </td>
       </tr>
 
     <% @order.order_items.map do  |order_detail| %>
