@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy, :download]
-  before_action :token, only: [:create]
+
   def index
     @q = Order.ransack(params[:q])
     @orders = @q.result(distinct: true)
@@ -20,19 +20,22 @@ class OrdersController < ApplicationController
   end
 
   def new
-    @order = Order.new
+    @customer = Customer.new
+    @order = @customer.orders.new
+
+    # @order = Order.new
     @order.order_items.build
   end
 
   def create
-    Customer.find_or_create_by(customer_email: @customer_email) do |user|
-      @order = Order.new(order_params)
-      if @order.save
-        # send email
-        redirect_to @order
-      else
-        render :new, status: :unprocessable_entity
-      end
+    @customer = Customer.find_or_create_by(order_params.slice(:customer_name, :customer_email))
+    @order = @customer.orders.new(order_params)
+    if @order.save
+      # send email
+      OrderMailer.send_order_mail(@order, view_context).deliver_now!
+      redirect_to @order
+    else
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -61,7 +64,6 @@ class OrdersController < ApplicationController
 
   def send_mail
     OrderMailer.send_order_mail.delivery_now!
-    render :text => "mail sent"
   end
 
    private
@@ -70,7 +72,7 @@ class OrdersController < ApplicationController
     end
 
     def order_params
-      params.require(:order).permit(order_items_attributes: OrderItem.attribute_names.map(&:to_sym).push(:destroy), :customer_attributes => [:customer_name, :customer_email])
+      params.require(:order).permit(:customer_name, :customer_email, order_items_attributes: OrderItem.attribute_names.map(&:to_sym).push(:destroy))
     end
 
 end
